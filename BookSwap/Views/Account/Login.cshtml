@@ -1,0 +1,27 @@
+﻿@model BookSwap.Models.User
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
+    <div class="card shadow-sm p-4" style="width: 350px;">
+        <h3 class="card-title text-center mb-3"><i class="bi bi-book-half"></i> BookSwap</h3>
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label"><i class="bi bi-person-fill"></i> Username</label>
+                <input asp-for="Username" class="form-control" placeholder="Unesi korisničko ime" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill"></i> Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Unesi lozinku" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-box-arrow-in-right"></i> Login</button>
+        </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+    </div>
+</div>

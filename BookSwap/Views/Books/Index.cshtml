@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Pregled knjiga";
+    var username = Context.Session.GetString("Username");
+}
+
+<div class="container my-5">
+    @if (!string.IsNullOrEmpty(username))
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var book in ViewBag.Books)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title" style="height: 300px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-text"><small class="text-muted">@book.Author</small></p>
+                            <p class="card-text flex-grow-1">@book.Description</p>
+                            <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary mt-2">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center shadow-sm p-5 rounded">
+            <h4 class="alert-heading"><i class="bi bi-info-circle"></i> Prijavite se za više detalja!</h4>
+            <p class="mb-4">Samo registrirani korisnici mogu pregledavati detalje knjiga. Prijavite se ili kreirajte novi račun kako biste nastavili.</p>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">
+                <i class="bi bi-person"></i> Login
+            </a>
+        </div>
+    }
+</div>
