@@ -1,0 +1,40 @@
+﻿@model BookSwap.Models.ViewModels.RegisterViewModel
+
+<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
+    <div class="card shadow-sm p-4" style="width: 380px;">
+        <h3 class="card-title text-center mb-3"><i class="bi bi-person-plus"></i> Registracija</h3>
+
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label">Ime i prezime</label>
+                <input asp-for="FullName" class="form-control" placeholder="Unesite ime i prezime" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Unesite email" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Lozinka</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">
+                <i class="bi bi-check-circle"></i> Registriraj se
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a asp-controller="Account" asp-action="Login">Već imate račun? Prijavite se</a>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3" role="alert">
+                @ViewBag.Error
+            </div>
+        }
+    </div>
+</div>
+
