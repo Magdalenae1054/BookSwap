@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Home";
+
+    var books = new List<dynamic>
+    {
+        new {
+            Title = "Zločin i kazna",
+            Author = "Fjodor Dostojevski",
+            ImageUrl = "/images/Zlocin-i-kazna-II.-izdanje.jpg",
+            Description = "Klasični roman koji istražuje psihološke dubine ljudske duše kroz priču o Rodionu Raskoljnikovu."
+        },
+        new {
+            Title = "Vječita Noć",
+            Author = "Agatha Christie",
+            ImageUrl = "/images/VjecitaNoc.jpg",
+            Description = "Psihološki triler u kojem paranoja, pohlepa i izdaja kulminiraju šokantnim preokretom."
+        },
+        new {
+            Title = "Frankenstein",
+            Author = "Mary Shelley",
+            ImageUrl = "/images/Frankenstein.jpg",
+            Description = "Roman o stvaranju i odgovornosti, opijen vlastitim otkrićima, istražuje granice moći i suosjećanja."
+        }
+    };
+}
+
+<!-- Hero sekcija -->
+<div class="p-5 mb-5 rounded-3 text-white shadow hero-container d-flex align-items-center">
+    <div class="container py-5 text-center">
+        <h1 class="display-4 fw-bold">Dobrodošli u BookSwap</h1>
+        <p class="lead">Jedna knjiga, beskonačno priča.</p>
+
+        <a asp-controller="Books" asp-action="Index" class="btn btn-lg btn-light mt-3 px-4 py-2 fw-bold shadow-sm">
+            <i class="bi bi-book-half"></i> Pregled knjiga
+        </a>
+    </div>
+</div>
+
+<!-- Sekcija s knjigama -->
+<div class="container mb-5">
+    <h2 class="mb-4 text-center">Naše preporuke</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var book in books)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@Url.Content(book.ImageUrl)" class="card-img-top" alt="@book.Title" style="height: 250px; object-fit: contain; width: 100%; background-color: #f8f9fa;" >
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@book.Title</h5>
+                        <p class="card-text"><small class="text-muted">@book.Author</small></p>
+                        <p class="card-text flex-grow-1">@book.Description</p>
+                        <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Title" class="btn btn-primary mt-2">Read more</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .hero-container {
+        background: url('/images/books.jpeg') center/cover no-repeat;
+        min-height: 400px;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .hero-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 0;
+            border-radius: 20px;
+        }
+
+        .hero-container .container {
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-container .btn:hover {
+            background-color: #f8f9fa;
+            color: #000;
+            transform: translateY(-2px);
+            transition: all 0.2s ease-in-out;
+        }
+
+    .card-img-top {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+    }
+</style>
