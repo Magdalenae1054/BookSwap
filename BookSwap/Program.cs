@@ -4,11 +4,23 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services
+using Microsoft.EntityFrameworkCore;
+using BookSwap.Models; // ili namespace gdje je BookSwapContext
+
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<BookSwapContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BookSwapConnection")));
+
+
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
+
 });
 
 builder.Services.AddDbContext<BookSwapContext>(options =>
@@ -35,13 +47,23 @@ using (var scope = app.Services.CreateScope())
 }
 
 // ❗ REDOSLIJED MORA BITI OVAKAV
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 app.UseSession();   // ← OVDJE ide session, SAMO JEDNOM
 
+app.UseSession();
+app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
