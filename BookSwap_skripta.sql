@@ -60,6 +60,7 @@ INSERT INTO Books (Title, Author, Subject, Description, ImageUrl)
 VALUES
 ('Harry Potter', 'J.K. Rowling', 'Fantasy', 'Popular fantasy novel.', 'https://mozaik-knjiga.hr/wp-content/uploads/2024/12/Harry-Potter-1-I-KAMEN-MUDRACA-500pix.jpg.webp'),
 ('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 'Bilbo Baggins adventure.', 'https://znanje.hr/product-images/b6a7383c-a0b2-4c15-9ebb-330fd1da2aaa.jpg');
+('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 'Bilbo Baggins adventure.', 'https://znanje.hr/product-images/b6a7383c-a0b2-4c15-9ebb-330fd1da2aaa.jpg');
 
 
 

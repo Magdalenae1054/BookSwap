@@ -1,9 +1,15 @@
-﻿using BookSwap.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.Xml;
+﻿using Microsoft.AspNetCore.Mvc;
+using BookSwap.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BookSwap.Controllers
+public class BooksController : Controller
 {
+    private readonly BookSwapContext _context;
+
+    public BooksController(BookSwapContext context)
+    {
+        _context = context;
+    }
     public class BooksController : Controller
     {
         private static List<Book> books = new List<Book>
@@ -50,18 +56,17 @@ namespace BookSwap.Controllers
             var username = HttpContext.Session.GetString("Username");
             ViewBag.Username = username; // šaljemo u view
 
-            // Ako je korisnik prijavljen, pošalji listu knjiga
-            if (!string.IsNullOrEmpty(username))
-            {
-                ViewBag.Books = books;
-            }
-            else
-            {
-                ViewBag.Books = null; // nije prijavljen
-            }
+    public IActionResult Index()
+    {
+        var books = _context.Books.ToList();
+        return View(books);
+    }
 
-            return View();
-        }
+    public IActionResult Details(int id)
+    {
+        var book = _context.Books.FirstOrDefault(b => b.BookId == id);
+        if (book == null) return NotFound();
 
+        return View(book);
     }
 }
