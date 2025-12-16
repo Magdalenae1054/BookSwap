@@ -5,10 +5,10 @@ namespace BookSwap.Models
     public class User
     {
         public int UserId { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string Role { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
 
         //public ICollection<Listing> Listings { get; set; }

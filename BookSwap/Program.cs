@@ -3,15 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
-using Microsoft.EntityFrameworkCore;
-using BookSwap.Models; // ili namespace gdje je BookSwapContext
 
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddDbContext<BookSwapContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BookSwapConnection")));
 
 
 // Add services to the container.
@@ -57,7 +49,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();   // ← OVDJE ide session, SAMO JEDNOM
 
 app.UseSession();
 app.UseAuthorization();
