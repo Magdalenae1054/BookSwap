@@ -65,7 +65,7 @@ public class AccountController : Controller
             Email = model.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
             Role = "User",
-            CreatedAt = DateTime.Now
+            //CreatedAt = DateTime.Now
         };
 
         _context.Users.Add(user);

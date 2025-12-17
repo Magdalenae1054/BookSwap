@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -49,8 +52,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+<<<<<<< Updated upstream
+=======
+app.UseSession();   
+>>>>>>> Stashed changes
 
-app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

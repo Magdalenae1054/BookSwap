@@ -11,6 +11,6 @@ namespace BookSwap.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
-        //public ICollection<Listing> Listings { get; set; }
+        public ICollection<Listing> Listings { get; set; }
     }
 }
