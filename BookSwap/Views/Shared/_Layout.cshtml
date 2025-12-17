@@ -36,7 +36,7 @@
 
                     <!-- Desni dio -->
                     @{
-                        var username = Context.Session.GetString("Username");
+                        var username = Context.Session.GetString("FullName");
                     }
                     <ul class="navbar-nav ms-auto">
                         @if (!string.IsNullOrEmpty(username))
