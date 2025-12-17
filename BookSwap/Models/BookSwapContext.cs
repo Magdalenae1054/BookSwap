@@ -73,9 +73,6 @@ namespace BookSwap.Models
                 }
             );
         }
-<<<<<<< Updated upstream
-=======
-  
->>>>>>> Stashed changes
+
     }
 }

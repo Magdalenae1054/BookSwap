@@ -28,8 +28,4 @@ namespace BookSwap.Controllers
             return View(book);
         }
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
