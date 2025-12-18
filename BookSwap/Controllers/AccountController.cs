@@ -1,83 +1,63 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BookSwap.Models;
 using BookSwap.Models.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using BCrypt.Net;
+using BookSwap.Services.Interfaces;
 
-public class AccountController : Controller
+namespace BookSwap.Controllers
 {
-    private readonly BookSwapContext _context;
-
-    public AccountController(BookSwapContext context)
+    public class AccountController : Controller
     {
-        _context = context;
-    }
+        private readonly IAccountService _accountService;
 
-    // GET: Login
-    [HttpGet]
-    public IActionResult Login()
-    {
-        return View();
-    }
-
-    // POST: Login
-    [HttpPost]
-    public IActionResult Login(string email, string password)
-    {
-        var user = _context.Users.FirstOrDefault(u => u.Email == email);
-
-        if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+        public AccountController(IAccountService accountService)
         {
-            ViewBag.Error = "Pogrešan email ili lozinka.";
-            return View();
+            _accountService = accountService;
         }
 
-        HttpContext.Session.SetString("UserId", user.UserId.ToString());
-        HttpContext.Session.SetString("FullName", user.FullName);
+        [HttpGet]
+        public IActionResult Login() => View();
 
-        return RedirectToAction("Index", "Books");
-    }
-
-    // GET: Register
-    [HttpGet]
-    public IActionResult Register()
-    {
-        return View();
-    }
-
-    // POST: Register
-    [HttpPost]
-    public IActionResult Register(RegisterViewModel model)
-    {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        // Provjeri postoji li korisnik
-        if (_context.Users.Any(u => u.Email == model.Email))
+        [HttpPost]
+        public IActionResult Login(LoginViewModel model)
         {
-            ViewBag.Error = "Ovaj email već postoji.";
-            return View();
+            if (!ModelState.IsValid) return View(model);
+
+            var result = _accountService.Login(model.Email, model.Password);
+            if (!result.Success)
+            {
+                ViewBag.Error = result.Error;
+                return View(model);
+            }
+
+            var user = _accountService.GetUserByEmail(model.Email);
+            HttpContext.Session.SetString("UserId", user.UserId.ToString());
+            HttpContext.Session.SetString("FullName", user.FullName);
+
+            return RedirectToAction("Index", "Books");
         }
 
-        var user = new User
+        [HttpGet]
+        public IActionResult Register() => View();
+
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
         {
-            FullName = model.FullName,
-            Email = model.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
-            Role = "User",
-            //CreatedAt = DateTime.Now
-        };
+            if (!ModelState.IsValid) return View(model);
 
-        _context.Users.Add(user);
-        _context.SaveChanges();
+            var result = _accountService.Register(model);
+            if (!result.Success)
+            {
+                ViewBag.Error = result.Error;
+                return View(model);
+            }
 
-        return RedirectToAction("Login");
-    }
+            return RedirectToAction("Login");
+        }
 
-
-    public IActionResult Logout()
-    {
-        HttpContext.Session.Clear();
-        return RedirectToAction("Login");
+        public IActionResult Logout()
+        {
+            _accountService.Logout();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
 }

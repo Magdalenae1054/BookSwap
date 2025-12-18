@@ -1,40 +1,44 @@
 ﻿@model BookSwap.Models.ViewModels.RegisterViewModel
 
 <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
-    <div class="card shadow-sm p-4" style="width: 380px;">
-        <h3 class="card-title text-center mb-3"><i class="bi bi-person-plus"></i> Registracija</h3>
+    <div class="card shadow-lg p-4" style="width: 420px; border-radius: 15px;">
+        <h3 class="card-title text-center mb-4">
+            <i class="bi bi-person-plus me-2"></i> Registracija
+        </h3>
 
         <form method="post">
             <div class="mb-3">
-                <label asp-for="FullName" class="form-label">Ime i prezime</label>
+                <label asp-for="FullName" class="form-label"><i class="bi bi-person-fill me-1"></i> Ime i prezime</label>
                 <input asp-for="FullName" class="form-control" placeholder="Unesite ime i prezime" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label">Email</label>
+                <label asp-for="Email" class="form-label"><i class="bi bi-envelope-fill me-1"></i> Email</label>
                 <input asp-for="Email" class="form-control" placeholder="Unesite email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label">Lozinka</label>
+                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill me-1"></i> Lozinka</label>
                 <input asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-success w-100">
-                <i class="bi bi-check-circle"></i> Registriraj se
+            <button type="submit" class="btn btn-success w-100 mb-3">
+                <i class="bi bi-check-circle me-1"></i> Registriraj se
             </button>
         </form>
 
-        <div class="text-center mt-3">
-            <a asp-controller="Account" asp-action="Login">Već imate račun? Prijavite se</a>
-        </div>
-
-        @if (ViewBag.Error != null)
+        @if (!string.IsNullOrEmpty(ViewBag.Error))
         {
-            <div class="alert alert-danger mt-3" role="alert">
+            <div class="alert alert-danger text-center">
                 @ViewBag.Error
             </div>
         }
+
+        <div class="text-center mt-3">
+            <a asp-action="Login">Već imate račun? Prijavite se</a>
+        </div>
     </div>
 </div>
-

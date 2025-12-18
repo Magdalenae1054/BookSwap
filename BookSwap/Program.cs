@@ -1,10 +1,14 @@
-﻿using BookSwap.Data;
+﻿using BookSwap.Models;
+using BookSwap.Services;
+using BookSwap.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>

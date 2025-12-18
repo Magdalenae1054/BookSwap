@@ -1,34 +1,38 @@
 ﻿@model BookSwap.Models.ViewModels.LoginViewModel
 
 <div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #f8f9fa;">
-    <div class="card shadow-sm p-4" style="width: 350px;">
-        <h3 class="card-title text-center mb-3"><i class="bi bi-book-half"></i> BookSwap</h3>
+    <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px;">
+        <h3 class="card-title text-center mb-4">
+            <i class="bi bi-book-half me-2"></i> BookSwap
+        </h3>
 
         <form method="post">
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"><i class="bi bi-person-fill"></i> Email</label>
-                <input asp-for="Email" class="form-control" placeholder="Unesi email" />
+                <label asp-for="Email" class="form-label"><i class="bi bi-envelope-fill me-1"></i> Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Unesite email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill"></i> Password</label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Unesi lozinku" />
+                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill me-1"></i> Lozinka</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">
-                <i class="bi bi-box-arrow-in-right"></i> Login
+            <button type="submit" class="btn btn-primary w-100 mb-3">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Prijava
             </button>
         </form>
 
-        @if (ViewBag.Error != null)
+        @if (!string.IsNullOrEmpty(ViewBag.Error))
         {
-            <div class="alert alert-danger mt-3" role="alert">
+            <div class="alert alert-danger text-center">
                 @ViewBag.Error
             </div>
         }
 
         <div class="text-center mt-3">
-            <a asp-controller="Account" asp-action="Register">Nemate račun? Registrirajte se</a>
+            <a asp-action="Register">Nemate račun? Registrirajte se</a>
         </div>
     </div>
 </div>
