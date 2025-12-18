@@ -36,7 +36,7 @@ namespace BookSwap.Services
                 Email = model.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
                 Role = "User",
-                CreatedAt = DateTime.Now,    // ili DateTime.UtcNow
+                
 
             };
 
@@ -53,5 +53,15 @@ namespace BookSwap.Services
 
         public  void Logout()
         { }
+
+        public User GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.UserId == id);
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
     }
 }

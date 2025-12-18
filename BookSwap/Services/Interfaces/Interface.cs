@@ -2,5 +2,6 @@
 {
     public interface IUserRatingReader
     {
+        double GetAverageRating(int userId);
     }
 }
