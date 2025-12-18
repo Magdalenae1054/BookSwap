@@ -1,4 +1,6 @@
-﻿namespace BookSwap.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace BookSwap.Models
 {
     public class Rating
     {
@@ -11,5 +13,7 @@
 
         public User FromUser { get; set; }
         public User ToUser { get; set; }
+
+        
     }
 }

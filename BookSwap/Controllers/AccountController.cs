@@ -1,16 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BCrypt.Net;
 using BookSwap.Models;
 using BookSwap.Models.ViewModels;
+using BookSwap.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BCrypt.Net;
+using System.Reflection.PortableExecutable;
 
 public class AccountController : Controller
 {
     private readonly BookSwapContext _context;
+    private readonly IUserRatingReader _reader;
+    private readonly IUserRatingWriter _writer;
 
-    public AccountController(BookSwapContext context)
+    public AccountController(BookSwapContext context, IUserRatingReader reader, IUserRatingWriter writer)
     {
         _context = context;
+        _reader = reader;
+        _writer = writer;
     }
 
     // GET: Login
@@ -80,4 +86,52 @@ public class AccountController : Controller
         HttpContext.Session.Clear();
         return RedirectToAction("Login");
     }
+
+    public IActionResult Profile(int id)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == id);
+        if (user == null)
+            return NotFound();
+
+        var avgRating = _reader.GetAverageRating(id);
+
+        var loggedUserId = HttpContext.Session.GetString("UserId");
+
+        var vm = new UserProfileViewModel
+        {
+            User = user,
+            AverageRating = avgRating,
+            CanRate = loggedUserId != null && loggedUserId != id.ToString()
+        };
+
+        return View(vm);
+    }
+
+
+    [HttpGet]
+    public IActionResult AddRating(int toUserId)
+    {
+        ViewBag.ToUserId = toUserId;
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult AddRating(int toUserId, int stars, string comment)
+    {
+        var fromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+
+        _writer.AddRating(fromUserId, toUserId, stars, comment);
+
+        return RedirectToAction("Profile", new { id = toUserId });
+    }
+
+    public IActionResult Users()
+    {
+        var users = _context.Users.ToList();
+        return View(users);
+    }
+
+
+
+
 }

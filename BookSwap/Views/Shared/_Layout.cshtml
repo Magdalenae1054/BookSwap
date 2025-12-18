@@ -32,6 +32,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                               asp-controller="Account"
+                               asp-action="Users">
+                                👥 Korisnici
+                            </a>
+                        </li>
+
                     </ul>
 
                     <!-- Desni dio -->
@@ -41,14 +50,25 @@
                     <ul class="navbar-nav ms-auto">
                         @if (!string.IsNullOrEmpty(username))
                         {
-                            <li class="nav-item">
-                                <span class="nav-link text-dark">Hello, @username!</span>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </a>
-                            </li>
+                              <li class="nav-item">
+                                   <span class="nav-link text-dark">Hello, @username!</span>
+                               </li>
+
+                               <li class="nav-item">
+                                   <a class="nav-link text-dark"
+                                      asp-controller="Account"
+                                      asp-action="Profile"
+                                      asp-route-id="@Context.Session.GetString("UserId")">
+                                       <i class="bi bi-person-circle"></i> Moj profil
+                                   </a>
+                               </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">
+                                        <i class="bi bi-box-arrow-right"></i> Logout
+                                    </a>
+                                </li>
+                           
                         }
                         else
                         {
