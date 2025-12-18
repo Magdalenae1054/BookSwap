@@ -1,8 +1,13 @@
 
 ﻿using BookSwap.Models;
 
+
 ﻿
 using BookSwap.Models;
+using BookSwap.Services;
+using BookSwap.Services.Interfaces;
+
+
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
 
@@ -10,6 +15,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 
 builder.Services.AddControllersWithViews();
