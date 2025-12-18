@@ -1,13 +1,24 @@
+
 ﻿using BookSwap.Models;
+
+
+﻿
+using BookSwap.Models;
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
+
+
+using BookSwap.Services;
+using BookSwap.Services.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Add services to the container.
+
 builder.Services.AddScoped<IAccountService, AccountService>();
+
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
@@ -19,6 +30,9 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddDbContext<BookSwapContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookSwapDb")));
+
+builder.Services.AddScoped<IUserRatingReader, UserRatingService>();
+builder.Services.AddScoped<IUserRatingWriter, UserRatingService>();
 
 var app = builder.Build();
 
@@ -40,7 +54,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// ❗ REDOSLIJED MORA BITI OVAKAV
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
