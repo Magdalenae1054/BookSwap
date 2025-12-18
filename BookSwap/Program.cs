@@ -1,4 +1,4 @@
-﻿using BookSwap.Models;
+﻿using BookSwap.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
