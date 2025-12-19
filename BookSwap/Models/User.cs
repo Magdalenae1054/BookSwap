@@ -10,7 +10,7 @@ namespace BookSwap.Models
         public string Role { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
        
-
+       
 
         //public ICollection<Listing> Listings { get; set; }
         ////public ICollection<ChatMessage> SentMessages { get; set; }

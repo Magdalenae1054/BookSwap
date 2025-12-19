@@ -10,7 +10,6 @@ namespace BookSwap.Services.Interfaces
         AuthResult Login(string email, string password);
         AuthResult Register(RegisterViewModel model);
         User GetUserByEmail(string email);
-
         User GetUserById(int id);
         List<User> GetAllUsers();
         void Logout();

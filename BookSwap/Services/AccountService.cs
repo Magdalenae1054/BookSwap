@@ -36,8 +36,6 @@ namespace BookSwap.Services
                 Email = model.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
                 Role = "User",
-                
-
             };
 
             _context.Users.Add(user);
@@ -56,11 +54,14 @@ namespace BookSwap.Services
 
         public User GetUserById(int id)
         {
+
             return _context.Users.FirstOrDefault(u => u.UserId == id);
+
         }
 
         public List<User> GetAllUsers()
         {
+
             return _context.Users.ToList();
         }
     }
