@@ -7,8 +7,7 @@
         public int LenderId { get; set; }
         public int BorrowerId { get; set; }
         public string Type { get; set; }
-        public DateTime StartedAt { get; set; }
-        public DateTime? EndedAt { get; set; }
+       
 
         public Listing Listing { get; set; }
         public User Lender { get; set; }

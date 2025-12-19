@@ -8,7 +8,7 @@
         public string Type { get; set; }
         public decimal? Price { get; set; }
         public string Status { get; set; }
-        public DateTime CreatedAt { get; set; }
+       
 
         public User User { get; set; }
         public Book Book { get; set; }

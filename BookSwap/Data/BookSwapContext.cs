@@ -26,7 +26,7 @@ namespace BookSwap.Models
                     Email = "admin@books.com",
                     PasswordHash = "admin123", 
                     Role = "Admin",
-                   // CreatedAt = DateTime.Now
+                   
                 },
                 new User
                 {
@@ -35,7 +35,7 @@ namespace BookSwap.Models
                     Email = "test@books.com",
                     PasswordHash = "test123",
                     Role = "User",
-                   // CreatedAt = DateTime.Now
+                   
                 }
             );
 
@@ -71,7 +71,7 @@ namespace BookSwap.Models
                     Type = "Borrow",
                     Price = null,
                     Status = "Available",
-                    CreatedAt = DateTime.Now
+                    
                 }
             );
         }
