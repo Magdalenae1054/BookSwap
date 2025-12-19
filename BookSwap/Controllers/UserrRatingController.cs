@@ -19,12 +19,27 @@ namespace BookSwap.Controllers
         [HttpPost]
         public IActionResult Add(int toUserId, int stars, string comment)
         {
-            int fromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var fromUserIdString = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(fromUserIdString))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (stars < 1 || stars > 5)
+            {
+                return RedirectToAction("Profile", "Account", new { id = toUserId });
+            }
+
+            int fromUserId = int.Parse(fromUserIdString);
 
             _writer.AddRating(fromUserId, toUserId, stars, comment);
 
             return RedirectToAction("Profile", "Account", new { id = toUserId });
         }
+
+
+
     }
 
 }
