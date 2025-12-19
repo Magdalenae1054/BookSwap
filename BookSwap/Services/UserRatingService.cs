@@ -20,7 +20,7 @@ namespace BookSwap.Services
                 ToUserId = toUserId,
                 Stars = stars,
                 Comment = comment,
-                CreatedAt = DateTime.Now
+                
             };
 
             _context.Ratings.Add(rating);

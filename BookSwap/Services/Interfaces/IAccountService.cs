@@ -16,3 +16,4 @@ namespace BookSwap.Services.Interfaces
         void Logout();
     }
 }
+ 

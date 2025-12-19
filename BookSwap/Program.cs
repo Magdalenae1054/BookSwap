@@ -8,6 +8,8 @@ using BookSwap.Services.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -24,7 +26,8 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddDbContext<BookSwapContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BookSwapDb")));
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("BookSwapDb")));
 
 builder.Services.AddScoped<IUserRatingReader, UserRatingService>();
 builder.Services.AddScoped<IUserRatingWriter, UserRatingService>();
