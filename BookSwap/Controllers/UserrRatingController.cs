@@ -19,19 +19,26 @@ namespace BookSwap.Controllers
         [HttpPost]
         public IActionResult Add(int toUserId, int stars, string comment)
         {
+            var userIdString = HttpContext.Session.GetString("UserId");
+
+            if (!int.TryParse(userIdString, out int fromUserId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             if (stars < 1 || stars > 5)
             {
+                TempData["Error"] = "Rating mora biti između 1 i 5.";
                 return RedirectToAction("Profile", "Account", new { id = toUserId });
             }
 
             if (string.IsNullOrWhiteSpace(comment))
             {
-                comment = ""; 
+                TempData["Error"] = "Komentar je obavezan.";
+                return RedirectToAction("Profile", "Account", new { id = toUserId });
             }
 
-            int fromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
-
-            _writer.AddRating(fromUserId, toUserId, stars, comment);
+            _writer.AddRating(fromUserId, toUserId, stars, comment.Trim());
 
             return RedirectToAction("Profile", "Account", new { id = toUserId });
         }
