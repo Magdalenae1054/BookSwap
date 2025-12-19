@@ -16,15 +16,26 @@ namespace BookSwap.Controllers
             _writer = writer;
         }
 
-        [HttpPost]
-        public IActionResult Add(int toUserId, int stars, string comment)
-        {
-            int fromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+       
+            [HttpPost]
+            public IActionResult Add(int toUserId, int stars, string comment)
+            {
+                var userIdString = HttpContext.Session.GetString("UserId");
 
-            _writer.AddRating(fromUserId, toUserId, stars, comment);
+                if (string.IsNullOrEmpty(userIdString))
+                {
+                   
+                    return RedirectToAction("Login", "Account");
+                }
 
-            return RedirectToAction("Profile", "Account", new { id = toUserId });
-        }
+                int fromUserId = int.Parse(userIdString);
+
+                _writer.AddRating(fromUserId, toUserId, stars, comment);
+
+                return RedirectToAction("Profile", "Account", new { id = toUserId });
+            }
+
+        
     }
 
 }
