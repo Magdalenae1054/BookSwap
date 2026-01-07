@@ -1,12 +1,9 @@
 
-using BookSwap.Models;﻿
 using BookSwap.Models;
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
-using BookSwap.Services;
-using BookSwap.Services.Interfaces;
-
 using Microsoft.EntityFrameworkCore;
+using BookSwap.Services.Decorators;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -31,6 +28,17 @@ builder.Services.AddDbContext<BookSwapContext>(options =>
 
 builder.Services.AddScoped<IUserRatingReader, UserRatingService>();
 builder.Services.AddScoped<IUserRatingWriter, UserRatingService>();
+
+builder.Services.AddScoped<UserRatingService>();
+
+builder.Services.AddScoped<IUserRatingWriter>(sp =>
+    new UserRatingDecorator(
+        sp.GetRequiredService<UserRatingService>()
+    ));
+
+builder.Services.AddScoped<IUserRatingReader>(
+    sp => sp.GetRequiredService<UserRatingService>()
+);
 
 var app = builder.Build();
 
@@ -63,7 +71,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();   
+app.UseSession();
 
 
 app.UseAuthorization();

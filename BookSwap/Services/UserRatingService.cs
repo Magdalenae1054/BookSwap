@@ -1,4 +1,5 @@
-﻿using BookSwap.Models;
+﻿using BookSwap.Factories;
+using BookSwap.Models;
 using BookSwap.Services.Interfaces;
 
 namespace BookSwap.Services
@@ -14,6 +15,10 @@ namespace BookSwap.Services
         }
         public void AddRating(int fromUserId, int toUserId, int stars, string comment)
         {
+
+            var validator = RatingValidationFactory.Create();
+            validator.Validate(stars, comment);
+
             var rating = new Rating
             {
                 FromUserId = fromUserId,

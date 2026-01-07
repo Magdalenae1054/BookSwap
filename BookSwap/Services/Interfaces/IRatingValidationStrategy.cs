@@ -2,5 +2,6 @@
 {
     public interface IRatingValidationStrategy
     {
+        void Validate(int stars, string comment);
     }
 }
