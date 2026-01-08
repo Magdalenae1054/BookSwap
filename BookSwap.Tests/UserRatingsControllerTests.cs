@@ -89,6 +89,6 @@ public class UserRatingsControllerTests
             => Task.CompletedTask;
 
         public Task LoadAsync(CancellationToken cancellationToken = default)
-            => Task.CompletedTask;
+            => Task.CompletedTask;  
     }
 }
