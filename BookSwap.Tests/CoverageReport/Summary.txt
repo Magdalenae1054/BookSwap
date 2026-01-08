@@ -1,0 +1,24 @@
+Summary
+  Generated on: 8.1.2026. - 19:14:24
+  Coverage date: 8.1.2026. - 18:43:06 - 8.1.2026. - 19:12:47
+  Parser: MultiReport (4x Cobertura)
+  Assemblies: 1
+  Classes: 2
+  Files: 2
+  Line coverage: 48.4%
+  Covered lines: 46
+  Uncovered lines: 49
+  Coverable lines: 95
+  Total lines: 197
+  Branch coverage: 25% (6 of 24)
+  Covered branches: 6
+  Total branches: 24
+  Method coverage: 58.8% (10 of 17)
+  Full method coverage: 41.1% (7 of 17)
+  Covered methods: 10
+  Fully covered methods: 7
+  Total methods: 17
+
+BookSwap                                   48.4%
+  BookSwap.Controllers.AccountController   32.7%
+  BookSwap.Services.AccountService         76.4%

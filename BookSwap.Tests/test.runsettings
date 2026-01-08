@@ -1,0 +1,6 @@
+<RunSettings>
+  <RunConfiguration>
+    <!-- Iskljuèuje shadow copy / AppDomain -->
+    <DisableAppDomain>true</DisableAppDomain>
+  </RunConfiguration>
+</RunSettings>

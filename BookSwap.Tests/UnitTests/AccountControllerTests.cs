@@ -43,5 +43,34 @@ namespace BookSwap.Tests
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+        [Fact]
+        public void Login_Post_InvalidModel_ReturnsView()
+        {
+            // Arrange: Simuliramo grešku u validaciji (npr. prazna polja)
+            _controller.ModelState.AddModelError("Email", "Required");
+
+            // Act
+            var result = _controller.Login(new LoginViewModel());
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void Users_ReturnsViewWithUserList()
+        {
+            // Arrange: Mockamo servis da vrati listu korisnika za UI
+            var users = new List<User> { new User { FullName = "Test" } };
+            _mockService.Setup(s => s.GetAllUsers()).Returns(users);
+
+            // Act
+            var result = _controller.Users() as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            var model = Assert.IsAssignableFrom<List<User>>(result.Model);
+            Assert.Single(model);
+        }
     }
 }
