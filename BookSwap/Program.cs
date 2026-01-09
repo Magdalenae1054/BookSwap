@@ -63,7 +63,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();   
+app.UseSession();
+
+if (app.Environment.IsEnvironment("Testing"))
+{
+    app.MapGet("/test/login/{userId:int}", (HttpContext ctx, int userId) =>
+    {
+        ctx.Session.SetString("UserId", userId.ToString());
+        return Results.Ok(new { ok = true, userId });
+    });
+}
 
 
 app.UseAuthorization();

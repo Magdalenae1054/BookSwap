@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
-using Microsoft.AspNetCore.Http;
+using Xunit;
+
 
 public class UserRatingsControllerTests
 {
