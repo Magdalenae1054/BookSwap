@@ -8,7 +8,7 @@ using BookSwap.Models.ViewModels;
 using BookSwap.Models;
 using System.Collections.Generic;
 
-namespace BookSwap.Tests
+namespace BookSwap.UnitTests.Controllers
 {
     public class AccountControllerTests
     {
