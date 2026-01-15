@@ -17,7 +17,7 @@ public static class SqliteContextFactory
             .Options;
 
         var ctx = new BookSwapContext(options);
-        ctx.Database.EnsureCreated(); // stvara tablice + seeding iz OnModelCreating
+        ctx.Database.EnsureCreated(); 
 
         return (ctx, conn);
     }
