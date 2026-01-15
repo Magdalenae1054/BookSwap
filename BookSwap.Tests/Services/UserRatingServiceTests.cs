@@ -48,7 +48,7 @@ public class UserRatingServiceTests
         ctx.Ratings.AddRange(
             new Rating { FromUserId = 1, ToUserId = 10, Stars = 5, Comment = "a" },
             new Rating { FromUserId = 2, ToUserId = 10, Stars = 3, Comment = "b" },
-            new Rating { FromUserId = 3, ToUserId = 11, Stars = 1, Comment = "c" } // drugi user
+            new Rating { FromUserId = 3, ToUserId = 11, Stars = 1, Comment = "c" } 
         );
         ctx.SaveChanges();
 
