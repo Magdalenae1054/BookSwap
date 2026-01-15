@@ -23,9 +23,25 @@ builder.Services.AddSession(options =>
     options.Cookie.SameSite = SameSiteMode.Lax;
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+    options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
+    options.Secure = CookieSecurePolicy.Always;
+});
+
+builder.Services.AddHsts(options =>
+{
+    options.MaxAge = TimeSpan.FromDays(365);
+    options.IncludeSubDomains = true;
+    options.Preload = true;
+});
+
+
 builder.Services.AddDbContext<BookSwapContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("BookSwapDb")));
+
 
 builder.Services.AddScoped<IUserRatingReader, UserRatingService>();
 builder.Services.AddScoped<IUserRatingWriter, UserRatingService>();
@@ -79,6 +95,8 @@ app.Use(async (context, next) =>
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCookiePolicy();
 
 app.UseSession();
 
