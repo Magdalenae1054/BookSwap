@@ -18,6 +18,9 @@ builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // => Secure flag
+    options.Cookie.SameSite = SameSiteMode.Lax;
 });
 
 builder.Services.AddDbContext<BookSwapContext>(options =>
@@ -58,14 +61,14 @@ app.UseHttpsRedirection();
 app.Use(async (context, next) =>
 {
     context.Response.Headers["Content-Security-Policy"] =
-        "default-src 'self'; " +
-        "object-src 'none'; " +
-        "base-uri 'self'; " +
-        "frame-ancestors 'none'; " +
-        "form-action 'self'; " +
-        "img-src 'self' data:; " +
-        "script-src 'self'; " +
-        "style-src 'self';";
+     "default-src 'self'; " +
+     "object-src 'none'; " +
+     "base-uri 'self'; " +
+     "frame-ancestors 'none'; " +
+     "form-action 'self'; " +
+     "img-src 'self' data: https:; " +
+     "script-src 'self'; " +
+     "style-src 'self';";
 
     await next();
 });
