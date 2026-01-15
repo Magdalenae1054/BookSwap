@@ -62,15 +62,15 @@ app.Use(async (context, next) =>
 {
 
     context.Response.Headers["Content-Security-Policy"] =
-    "default-src 'self'; " +
-    "object-src 'none'; " +
-    "base-uri 'self'; " +
-    "frame-ancestors 'none'; " +
-    "form-action 'self'; " +
-    "img-src 'self' data:; " +
-    "script-src 'self'; " +
-    "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; " +
-    "font-src 'self' https://cdn.jsdelivr.net;";
+       "default-src 'self'; " +
+       "object-src 'none'; " +
+       "base-uri 'self'; " +
+       "frame-ancestors 'none'; " +
+       "form-action 'self'; " +
+       "img-src 'self' data:; " +
+       "script-src 'self'; " +
+       "style-src 'self' https://cdn.jsdelivr.net; " +
+       "font-src 'self' https://cdn.jsdelivr.net;";
 
     await next();
 });
