@@ -1,6 +1,7 @@
 using BookSwap.Models;﻿
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -23,6 +24,8 @@ builder.Services.AddSession(options =>
     options.Cookie.SameSite = SameSiteMode.Lax;
 });
 
+
+
 builder.Services.AddDbContext<BookSwapContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("BookSwapDb")));
@@ -30,7 +33,15 @@ builder.Services.AddDbContext<BookSwapContext>(options =>
 builder.Services.AddScoped<IUserRatingReader, UserRatingService>();
 builder.Services.AddScoped<IUserRatingWriter, UserRatingService>();
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
 var app = builder.Build();
+
 
 // TEST BAZE
 using (var scope = app.Services.CreateScope())
@@ -50,16 +61,24 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseForwardedHeaders();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 
 app.Use(async (context, next) =>
 {
+    if (context.Request.Headers["X-Forwarded-Proto"] == "https")
+    {
+        context.Response.Headers["Strict-Transport-Security"] =
+            "max-age=31536000; includeSubDomains; preload";
+    }
 
     context.Response.Headers["Content-Security-Policy"] =
        "default-src 'self'; " +
