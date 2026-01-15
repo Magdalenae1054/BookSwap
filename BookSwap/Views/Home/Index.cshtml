@@ -56,39 +56,3 @@
         }
     </div>
 </div>
-
-<style>
-    .hero-container {
-        background: url('/images/books.jpeg') center/cover no-repeat;
-        min-height: 400px;
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
-    }
-
-        .hero-container::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 0;
-            border-radius: 20px;
-        }
-
-        .hero-container .container {
-            position: relative;
-            z-index: 5;
-        }
-
-        .hero-container .btn:hover {
-            background-color: #f8f9fa;
-            color: #000;
-            transform: translateY(-2px);
-            transition: all 0.2s ease-in-out;
-        }
-
-    .card-img-top {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-    }
-</style>
