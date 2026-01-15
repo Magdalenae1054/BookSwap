@@ -1,11 +1,6 @@
-
 using BookSwap.Models;﻿
-using BookSwap.Models;
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
-using BookSwap.Services;
-using BookSwap.Services.Interfaces;
-
 using Microsoft.EntityFrameworkCore;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -59,6 +54,23 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Content-Security-Policy"] =
+        "default-src 'self'; " +
+        "object-src 'none'; " +
+        "base-uri 'self'; " +
+        "frame-ancestors 'none'; " +
+        "form-action 'self'; " +
+        "img-src 'self' data:; " +
+        "script-src 'self'; " +
+        "style-src 'self';";
+
+    await next();
+});
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
