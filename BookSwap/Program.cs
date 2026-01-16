@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 
 
@@ -56,6 +57,11 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    await next();
+});
 
 // TEST BAZE
 using (var scope = app.Services.CreateScope())
