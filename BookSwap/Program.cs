@@ -141,4 +141,7 @@ app.MapControllerRoute(
 
 await app.RunAsync();
 
-public static partial class Program { }
+#pragma warning disable S3963
+public partial class Program { }
+
+#pragma warning restore S3963
