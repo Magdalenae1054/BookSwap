@@ -11,20 +11,37 @@ namespace BookSwap.Migrations
     /// <inheritdoc />
     public partial class InitialPostgres : Migration
     {
-        /// <inheritdoc />
+        private const string TableBooks = "Books";
+        private const string TableUsers = "Users";
+        private const string TableListings = "Listings";
+        private const string TableRatings = "Ratings";
+        private const string TableChatMessage = "ChatMessage";
+        private const string TableTransaction = "Transaction";
+
+        private const string TypeInteger = "integer";
+        private const string TypeText = "text";
+        private const string TypeTimestampTz = "timestamp with time zone";
+
+        private const string AnnotationValueGeneration = "Npgsql:ValueGenerationStrategy";
+
+        private const string ColumnUserId = "UserId";
+        private const string ColumnBookId = "BookId";
+        private const string ColumnListingId = "ListingId";
+        private const string ColumnTransactionId = "TransactionId";
+
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: TableBooks,
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Author = table.Column<string>(type: "text", nullable: false),
-                    Subject = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    ImageUrl = table.Column<string>(type: "text", nullable: false)
+                    BookId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: TypeText, nullable: false),
+                    Author = table.Column<string>(type: TypeText, nullable: false),
+                    Subject = table.Column<string>(type: TypeText, nullable: false),
+                    Description = table.Column<string>(type: TypeText, nullable: false),
+                    ImageUrl = table.Column<string>(type: TypeText, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,15 +49,15 @@ namespace BookSwap.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: TableUsers,
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false)
+                    UserId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: TypeText, nullable: false),
+                    FullName = table.Column<string>(type: TypeText, nullable: false),
+                    Role = table.Column<string>(type: TypeText, nullable: false),
+                    PasswordHash = table.Column<string>(type: TypeText, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,17 +65,17 @@ namespace BookSwap.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Listings",
+                name: TableListings,
                 columns: table => new
                 {
-                    ListingId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    BookId = table.Column<int>(type: "integer", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
+                    ListingId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: TypeInteger, nullable: false),
+                    BookId = table.Column<int>(type: TypeInteger, nullable: false),
+                    Type = table.Column<string>(type: TypeText, nullable: false),
                     Price = table.Column<decimal>(type: "numeric", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Status = table.Column<string>(type: TypeText, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: TypeTimestampTz, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,28 +83,28 @@ namespace BookSwap.Migrations
                     table.ForeignKey(
                         name: "FK_Listings_Books_BookId",
                         column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "BookId",
+                        principalTable: TableBooks,
+                        principalColumn: ColumnBookId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Listings_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ratings",
+                name: TableRatings,
                 columns: table => new
                 {
-                    RatingId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FromUserId = table.Column<int>(type: "integer", nullable: false),
-                    ToUserId = table.Column<int>(type: "integer", nullable: false),
-                    Stars = table.Column<int>(type: "integer", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    RatingId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FromUserId = table.Column<int>(type: TypeInteger, nullable: false),
+                    ToUserId = table.Column<int>(type: TypeInteger, nullable: false),
+                    Stars = table.Column<int>(type: TypeInteger, nullable: false),
+                    Comment = table.Column<string>(type: TypeText, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: TypeTimestampTz, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,28 +112,28 @@ namespace BookSwap.Migrations
                     table.ForeignKey(
                         name: "FK_Ratings_Users_FromUserId",
                         column: x => x.FromUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ratings_Users_ToUserId",
                         column: x => x.ToUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChatMessage",
+                name: TableChatMessage,
                 columns: table => new
                 {
-                    MessageId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FromUserId = table.Column<int>(type: "integer", nullable: false),
-                    ToUserId = table.Column<int>(type: "integer", nullable: false),
-                    ListingId = table.Column<int>(type: "integer", nullable: false),
-                    MessageText = table.Column<string>(type: "text", nullable: false),
-                    SentAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    MessageId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FromUserId = table.Column<int>(type: TypeInteger, nullable: false),
+                    ToUserId = table.Column<int>(type: TypeInteger, nullable: false),
+                    ListingId = table.Column<int>(type: TypeInteger, nullable: false),
+                    MessageText = table.Column<string>(type: TypeText, nullable: false),
+                    SentAt = table.Column<DateTime>(type: TypeTimestampTz, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,35 +141,35 @@ namespace BookSwap.Migrations
                     table.ForeignKey(
                         name: "FK_ChatMessage_Listings_ListingId",
                         column: x => x.ListingId,
-                        principalTable: "Listings",
-                        principalColumn: "ListingId",
+                        principalTable: TableListings,
+                        principalColumn: ColumnListingId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChatMessage_Users_FromUserId",
                         column: x => x.FromUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ChatMessage_Users_ToUserId",
                         column: x => x.ToUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Transaction",
+                name: TableTransaction,
                 columns: table => new
                 {
-                    TransactionId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ListingId = table.Column<int>(type: "integer", nullable: false),
-                    LenderId = table.Column<int>(type: "integer", nullable: false),
-                    BorrowerId = table.Column<int>(type: "integer", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
-                    StartedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    TransactionId = table.Column<int>(type: TypeInteger, nullable: false)
+                        .Annotation(AnnotationValueGeneration, NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ListingId = table.Column<int>(type: TypeInteger, nullable: false),
+                    LenderId = table.Column<int>(type: TypeInteger, nullable: false),
+                    BorrowerId = table.Column<int>(type: TypeInteger, nullable: false),
+                    Type = table.Column<string>(type: TypeText, nullable: false),
+                    StartedAt = table.Column<DateTime>(type: TypeTimestampTz, nullable: false),
+                    EndedAt = table.Column<DateTime>(type: TypeTimestampTz, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -160,117 +177,32 @@ namespace BookSwap.Migrations
                     table.ForeignKey(
                         name: "FK_Transaction_Listings_ListingId",
                         column: x => x.ListingId,
-                        principalTable: "Listings",
-                        principalColumn: "ListingId",
+                        principalTable: TableListings,
+                        principalColumn: ColumnListingId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transaction_Users_BorrowerId",
                         column: x => x.BorrowerId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transaction_Users_LenderId",
                         column: x => x.LenderId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        principalTable: TableUsers,
+                        principalColumn: ColumnUserId,
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Books",
-                columns: new[] { "BookId", "Author", "Description", "ImageUrl", "Subject", "Title" },
-                values: new object[,]
-                {
-                    { 1, "J.K. Rowling", "Čarobnjački roman.", "/images/hp.jpg", "Fantasy", "Harry Potter" },
-                    { 2, "J.R.R. Tolkien", "Avantura hobita.", "/images/hobbit.jpg", "Fantasy", "The Hobbit" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "UserId", "Email", "FullName", "PasswordHash", "Role" },
-                values: new object[,]
-                {
-                    { 1, "admin@books.com", "Admin User", "admin123", "Admin" },
-                    { 2, "test@books.com", "Test User", "test123", "User" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Listings",
-                columns: new[] { "ListingId", "BookId", "CreatedAt", "Price", "Status", "Type", "UserId" },
-                values: new object[] { 1, 1, new DateTime(2025, 12, 19, 2, 44, 59, 275, DateTimeKind.Local).AddTicks(8944), null, "Available", "Borrow", 2 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChatMessage_FromUserId",
-                table: "ChatMessage",
-                column: "FromUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChatMessage_ListingId",
-                table: "ChatMessage",
-                column: "ListingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChatMessage_ToUserId",
-                table: "ChatMessage",
-                column: "ToUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Listings_BookId",
-                table: "Listings",
-                column: "BookId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Listings_UserId",
-                table: "Listings",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_FromUserId",
-                table: "Ratings",
-                column: "FromUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ratings_ToUserId",
-                table: "Ratings",
-                column: "ToUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transaction_BorrowerId",
-                table: "Transaction",
-                column: "BorrowerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transaction_LenderId",
-                table: "Transaction",
-                column: "LenderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transaction_ListingId",
-                table: "Transaction",
-                column: "ListingId");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ChatMessage");
-
-            migrationBuilder.DropTable(
-                name: "Ratings");
-
-            migrationBuilder.DropTable(
-                name: "Transaction");
-
-            migrationBuilder.DropTable(
-                name: "Listings");
-
-            migrationBuilder.DropTable(
-                name: "Books");
-
-            migrationBuilder.DropTable(
-                name: "Users");
+            migrationBuilder.DropTable(TableChatMessage);
+            migrationBuilder.DropTable(TableRatings);
+            migrationBuilder.DropTable(TableTransaction);
+            migrationBuilder.DropTable(TableListings);
+            migrationBuilder.DropTable(TableBooks);
+            migrationBuilder.DropTable(TableUsers);
         }
     }
 }
