@@ -4,9 +4,10 @@ using BookSwap.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
+namespace BookSwap.UnitTests;
 public class AccountServiceTests
 {
-    private BookSwapContext GetContext()
+    private static BookSwapContext GetContext()
     {
         var options = new DbContextOptionsBuilder<BookSwapContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

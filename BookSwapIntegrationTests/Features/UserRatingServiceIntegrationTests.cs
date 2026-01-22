@@ -2,6 +2,7 @@
 using BookSwapIntegrationTests.Infrastructure;
 using Xunit;
 
+namespace BookSwapIntegrationTests;
 public class UserRatingServiceIntegrationTests
 {
     [Fact]
