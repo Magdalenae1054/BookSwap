@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace BookSwapIntegrationTests;
-
 public class AccountIntegrationTests
     : IClassFixture<WebApplicationFactory<Program>>
 {

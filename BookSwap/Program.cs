@@ -9,6 +9,8 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
 
+
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 
 
@@ -137,6 +139,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
- await app.RunAsync();
+await app.RunAsync();
 
-public static partial  class Program { }
+public static partial class Program { }
