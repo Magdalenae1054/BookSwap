@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using Xunit;
 
-
+namespace BookSwap.UnitTests;
 public class UserRatingsControllerTests
 {
     private static UserRatingsController CreateController(

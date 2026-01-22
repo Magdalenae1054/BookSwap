@@ -70,7 +70,7 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        if (db.Database.CanConnect())
+        if (await db.Database.CanConnectAsync())
             Console.WriteLine("✔✔✔ CONNECTED TO DATABASE!");
         else
             Console.WriteLine("❌ ERROR: Cannot connect to database.");
@@ -139,6 +139,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.Run();
+await app.RunAsync();
 
-public partial class Program { }
+public static partial class Program { }

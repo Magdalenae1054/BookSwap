@@ -1,7 +1,8 @@
-﻿using System.Net;
+﻿using System.IO.Pipes;
+using System.Net;
 using BookSwapIntegrationTests.Infrastructure;
 using Xunit;
-
+namespace BookSwapIntegrationTests;
 public class SmokeTests : IClassFixture<BookSwapFactory>
 {
     private readonly BookSwapFactory _factory;

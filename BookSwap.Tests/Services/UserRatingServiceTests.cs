@@ -4,6 +4,7 @@ using BookSwap.Services;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
+namespace BookSwap.UnitTests;
 public class UserRatingServiceTests
 {
     private static BookSwapContext CreateContext()

@@ -8,19 +8,19 @@
 
         <form method="post">
             <div class="mb-3">
-                <label asp-for="FullName" class="form-label"><i class="bi bi-person-fill me-1"></i> Ime i prezime</label>
+                <label for="FullName" class="form-label"><i class="bi bi-person-fill me-1"></i> Ime i prezime</label>
                 <input asp-for="FullName" class="form-control" placeholder="Unesite ime i prezime" />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Email" class="form-label"><i class="bi bi-envelope-fill me-1"></i> Email</label>
+                <label for="Email" class="form-label"><i class="bi bi-envelope-fill me-1"></i> Email</label>
                 <input asp-for="Email" class="form-control" placeholder="Unesite email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill me-1"></i> Lozinka</label>
+                <label for="Password" class="form-label"><i class="bi bi-lock-fill me-1"></i> Lozinka</label>
                 <input asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
