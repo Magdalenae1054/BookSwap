@@ -10,11 +10,11 @@ namespace BookSwap.Models
         public int FromUserId { get; set; }
         public int ToUserId { get; set; }
         public int ListingId { get; set; }
-        public string MessageText { get; set; }
+        public string? MessageText { get; set; }
         
 
-        public User FromUser { get; set; }
-        public User ToUser { get; set; }
-        public Listing Listing { get; set; }
+        public User? FromUser { get; set; }
+        public User? ToUser { get; set; }
+        public Listing? Listing { get; set; }
     }
 }
