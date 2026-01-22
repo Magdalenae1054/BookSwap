@@ -2,11 +2,8 @@
 ﻿using BCrypt.Net;
 using BookSwap.Models;
 using BookSwap.Models.ViewModels;
-using BookSwap.Models.ViewModels;
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
-using BookSwap.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.PortableExecutable;
@@ -81,6 +78,12 @@ namespace BookSwap.Controllers
 
         public IActionResult Profile(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id <= 0)
+                return NotFound();
+
             var user = _accountService.GetUserById(id);
             if (user == null)
                 return NotFound();
@@ -99,23 +102,37 @@ namespace BookSwap.Controllers
         }
 
 
-
         [HttpGet]
         public IActionResult AddRating(int toUserId)
         {
-            ViewBag.ToUserId = toUserId;
-            return View();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (toUserId <= 0)
+                return NotFound();
+
+            return View(new AddRatingViewModel { ToUserId = toUserId });
         }
+
+
 
         [HttpPost]
-        public IActionResult AddRating(int toUserId, int stars, string comment)
+        [ValidateAntiForgeryToken]
+        public IActionResult AddRating(AddRatingViewModel model)
         {
-            var fromUserId = int.Parse(HttpContext.Session.GetString("UserId"));
+            var userIdStr = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrWhiteSpace(userIdStr))
+                return RedirectToAction("Login");
 
-            _writer.AddRating(fromUserId, toUserId, stars, comment);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            return RedirectToAction("Profile", new { id = toUserId });
+            var fromUserId = int.Parse(userIdStr);
+            _writer.AddRating(fromUserId, model.ToUserId, model.Stars, model.Comment);
+
+            return RedirectToAction("Profile", new { id = model.ToUserId });
         }
+
 
         public IActionResult Users()
         {

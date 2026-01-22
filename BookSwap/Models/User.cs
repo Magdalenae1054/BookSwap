@@ -12,12 +12,7 @@ namespace BookSwap.Models
        
        
 
-        //public ICollection<Listing> Listings { get; set; }
-        ////public ICollection<ChatMessage> SentMessages { get; set; }
-        ////public ICollection<ChatMessage> ReceivedMessages { get; set; }
-        //public ICollection<Transaction> LenderTransactions { get; set; }
-        //public ICollection<Transaction> BorrowerTransactions { get; set; }
-        //public ICollection<Rating> FromRatings { get; set; }
-        //public ICollection<Rating> ToRatings { get; set; }
+        
+     
     }
 }

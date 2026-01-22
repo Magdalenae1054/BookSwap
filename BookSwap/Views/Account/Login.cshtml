@@ -7,17 +7,18 @@
         </h3>
 
         <form method="post">
-            <div class="mb-3">
-                <label asp-for="Email" class="form-label"><i class="bi bi-envelope-fill me-1"></i> Email</label>
-                <input asp-for="Email" class="form-control" placeholder="Unesite email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+            <label class="form-label" for="Email">
+                <i class="bi bi-envelope-fill me-1"></i> Email
+            </label>
+            <input id="Email" asp-for="Email" class="form-control" placeholder="Unesite email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
 
-            <div class="mb-3">
-                <label asp-for="Password" class="form-label"><i class="bi bi-lock-fill me-1"></i> Lozinka</label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+           
+            <label class="form-label" for="Password">
+                <i class="bi bi-lock-fill me-1"></i> Lozinka
+            </label>
+            <input id="Password" asp-for="Password" type="password" class="form-control" placeholder="Unesite lozinku" />
+            <span asp-validation-for="Password" class="text-danger"></span>
 
             <button type="submit" class="btn btn-primary w-100 mb-3">
                 <i class="bi bi-box-arrow-in-right me-1"></i> Prijava
