@@ -21,11 +21,18 @@ namespace BookSwap.Controllers
 
         public IActionResult Details(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id <= 0)
+                return NotFound();
+
             var book = _context.Books.FirstOrDefault(b => b.BookId == id);
             if (book == null)
                 return NotFound();
 
             return View(book);
         }
+
     }
 }
