@@ -1,8 +1,9 @@
-using BookSwap.Models;﻿
+using BookSwap.Models;
 using BookSwap.Services;
 using BookSwap.Services.Interfaces;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -141,7 +142,15 @@ app.MapControllerRoute(
 
 await app.RunAsync();
 
-#pragma warning disable S3963
+[ExcludeFromCodeCoverage]
+[SuppressMessage(
+    "Major Code Smell",
+    "S3963:Empty classes should be static",
+    Justification = "Required for WebApplicationFactory in integration tests"
+)]
+[SuppressMessage(
+    "Major Code Smell",
+    "S1118:Utility classes should not have public constructors",
+    Justification = "Required for WebApplicationFactory in integration tests"
+)]
 public partial class Program { }
-
-#pragma warning restore S3963
