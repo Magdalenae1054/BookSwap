@@ -36,6 +36,12 @@ namespace BookSwap.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
+            if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+            {
+                ViewBag.Error = "Email i lozinka su obavezni";
+                return View(model);
+            }
+
             var result = _accountService.Login(model.Email, model.Password);
             if (!result.Success)
             {
@@ -43,8 +49,17 @@ namespace BookSwap.Controllers
                 return View(model);
             }
 
+            
+
             var user = _accountService.GetUserByEmail(model.Email);
-            HttpContext.Session.SetString("UserId", user.UserId.ToString());
+
+            if (user == null)
+            {
+                ViewBag.Error = "Greska pri prijavi";
+                return View(model);
+            }
+
+                HttpContext.Session.SetString("UserId", user.UserId.ToString());
             HttpContext.Session.SetString("FullName", user.FullName);
 
             return RedirectToAction("Index", "Books");

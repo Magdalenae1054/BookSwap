@@ -16,7 +16,10 @@ namespace BookSwap.Services
 
         public AuthResult Login(string email, string password)
         {
-           var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                return AuthResult.Fail("Email i lozinka su obavezni.");
+
+            var user = _context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
                 return AuthResult.Fail("Pogrešan email ili lozinka.");
@@ -26,6 +29,10 @@ namespace BookSwap.Services
 
         public AuthResult Register(RegisterViewModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.Email) ||
+             string.IsNullOrWhiteSpace(model.Password) ||
+             string.IsNullOrWhiteSpace(model.FullName))
+                return AuthResult.Fail("Sva polja su obavezna.");
 
             if (_context.Users.Any(x => x.Email == model.Email))
                 return AuthResult.Fail("Ovaj email već postoji.");
@@ -44,7 +51,7 @@ namespace BookSwap.Services
 
             return AuthResult.Ok();
         }
-        public User GetUserByEmail(string email)
+        public User? GetUserByEmail(string email)
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
@@ -52,7 +59,7 @@ namespace BookSwap.Services
         public  void Logout()
         { }
 
-        public User GetUserById(int id)
+        public User? GetUserById(int id)
         {
 
             return _context.Users.FirstOrDefault(u => u.UserId == id);
