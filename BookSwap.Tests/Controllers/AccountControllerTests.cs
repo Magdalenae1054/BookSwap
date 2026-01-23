@@ -34,13 +34,13 @@ namespace BookSwap.UnitTests.Controllers
         [Fact]
         public void Profile_UserNotFound_ReturnsNotFound()
         {
-            // Arrange
-            _mockService.Setup(s => s.GetUserById(It.IsAny<int>())).Returns((User)null);
+        
+            _mockService.Setup(s => s.GetUserById(It.IsAny<int>())).Returns((User)null!);
 
-            // Act
+           
             var result = _controller.Profile(99);
 
-            // Assert
+            
             Assert.IsType<NotFoundResult>(result);
         }
 
@@ -50,10 +50,10 @@ namespace BookSwap.UnitTests.Controllers
             // Arrange: Simuliramo grešku u validaciji (npr. prazna polja)
             _controller.ModelState.AddModelError("Email", "Required");
 
-            // Act
+            
             var result = _controller.Login(new LoginViewModel());
 
-            // Assert
+           
             Assert.IsType<ViewResult>(result);
         }
 
@@ -64,10 +64,10 @@ namespace BookSwap.UnitTests.Controllers
             var users = new List<User> { new User { FullName = "Test" } };
             _mockService.Setup(s => s.GetAllUsers()).Returns(users);
 
-            // Act
+           
             var result = _controller.Users() as ViewResult;
 
-            // Assert
+            
             Assert.NotNull(result);
             var model = Assert.IsAssignableFrom<List<User>>(result.Model);
             Assert.Single(model);
