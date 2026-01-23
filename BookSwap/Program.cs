@@ -71,6 +71,8 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
+        db.Database.Migrate();
+
         if (await db.Database.CanConnectAsync())
             Console.WriteLine("✔✔✔ CONNECTED TO DATABASE!");
         else
